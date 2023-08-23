@@ -1,0 +1,62 @@
+  /* 鼠标图标 */
+  body {
+    cursor: url('/img/x1.cur'), auto;
+  }
+  a,
+  [type='button']:not(:disabled),
+  [type='reset']:not(:disabled),
+  [type='submit']:not(:disabled),
+  button:not(:disabled) {
+    cursor: url('/img/x2.cur'), auto !important;
+  }
+
+  /* 标签页魔改 */
+  #page .tag-cloud-list a {
+    display: flex;
+    width: fit-content;
+    color: var(--anzhiyu-fontcolor) !important;
+    font-size: 1.4em !important;
+    padding: 0.2em .5em;
+    background: var(--anzhiyu-card-bg);
+    margin: .5em .5em;
+    border-radius: 12px;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    border: var(--style-border-always);
+    box-shadow: var(--anzhiyu-shadow-border);
+    align-items: center;
+  }
+  
+  #page .tag-cloud-list a:hover {
+    background: var(--anzhiyu-blue-main) !important;
+    box-shadow: var(--anzhiyu-shadow-blue);
+    color: var(--anzhiyu-white) !important;
+    border: var(--style-border-hover);
+  }
+
+  #page .tag-cloud-list a:hover span.tagsPageCount {
+    color: var(--anzhiyu-lighttext);
+  }
+
+  .page #page .tag-cloud-list #tag #tag-page-tags span.tags-punctuation {
+    font-size: 22px;
+    opacity: 0.4;
+    margin-right: 2px;
+  }
+
+  /* 侧边栏标签样式 */
+  #aside-content .card-tag-cloud {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center
+  }
+
+  /* 文章页底部ptool标签双行 */
+  .post-tools-right {
+    width: 100%;
+  }
+
+  table tr:nth-child(even) {
+    background-color: var(--anzhiyu-secondbg)
+  }
