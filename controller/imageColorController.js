@@ -2,14 +2,17 @@ let imageColor = require('../service/imageColor');
 let imageMainColor = require('../utils/imageMainColor');
 
 module.exports = {
-    imageColorController(req, res, next) {
-        imageColor.queryByUrl(req, res, next).then((result) => {
+    imageColorController(req, res) {
+        let param = req.query.url;
+        imageColor.queryByUrl(param).then((result) => {
             if (result == null) {
-                imageMainColor.getImageColorRGB(req.query.url)
+                imageMainColor.getImageColorRGB(param)
                 .then((HexColor) => {
                     let RGB = {"RGB": HexColor};
                     this.jsonWrite(res, RGB);
-                    imageColor.add(req, res, next, HexColor);
+                    imageColor.add(param, HexColor).then((result) => {
+                        console.log(result);
+                    });
                 })
                 .catch((err) => {
                     res.send(err)
