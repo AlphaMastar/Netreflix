@@ -11,7 +11,7 @@ module.exports = {
                     let RGB = {"RGB": HexColor};
                     this.jsonWrite(res, RGB);
                     imageColor.add(param, HexColor).then((result) => {
-                        console.log(result);
+                        console.log( Url + '图片RGB添加数据库成功');
                     });
                 })
                 .catch((err) => {
