@@ -10,7 +10,10 @@ module.exports = {
                     let RGB = {"RGB": HexColor};
                     this.jsonWrite(res, RGB);
                     imageColor.add(req, res, next, HexColor);
-                });
+                })
+                .catch((err) => {
+                    res.send(err)
+                })
             } else {
                 this.jsonWrite(res, result);
             };
