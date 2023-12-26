@@ -1,10 +1,11 @@
 // 数据库配置文件
-module.exports = { 
-    mysql:{
+const config = {
+    database:{
         host: '192.168.0.107',
         user: 'img',         
         password: 'Mcmef411',     
-        database: 'img',
-        connectionLimit: 20
+        database: 'img'
     }
 }
+
+module.exports = config
