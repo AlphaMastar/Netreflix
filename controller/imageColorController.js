@@ -2,25 +2,22 @@ let imageColor = require('../service/imageColor');
 let imageMainColor = require('../utils/imageMainColor');
 
 module.exports = {
-    imageColorController(req, res) {
+    async imageColorController(req, res) {
         let param = req.query.url;
-        imageColor.queryByUrl(param).then((result) => {
-            if (result == null) {
-                imageMainColor.getImageColorRGB(param)
-                .then((HexColor) => {
-                    let RGB = {"RGB": HexColor};
-                    this.jsonWrite(res, RGB);
-                    imageColor.add(param, HexColor).then((result) => {
-                        console.log( Url + '图片RGB添加数据库成功');
-                    });
-                })
-                .catch((err) => {
-                    res.send(err)
-                })
-            } else {
-                this.jsonWrite(res, result);
-            };
-        });
+        let result = await imageColor.imageColorQueryByUrl(param)
+        if (result.length == 0) {
+            imageMainColor.getImageColorRGB(param)
+            .then((HexColor) => {
+                this.jsonWrite(res, HexColor);
+                imageColor.imageColorAdd([url, HexColor.RGB]);
+            })
+            .catch((err) => {
+                res.send(err)
+            })
+        } else {
+            this.jsonWrite(res, result);
+        };
+        
     },
     jsonWrite (res, ret) {
         if(typeof ret === 'undefined') {
