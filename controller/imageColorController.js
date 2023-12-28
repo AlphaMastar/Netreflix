@@ -15,7 +15,8 @@ module.exports = {
                 res.send(err)
             })
         } else {
-            this.jsonWrite(res, result);
+            let HexColor = JSON.stringify(result[0],['RGB']);
+            this.jsonWrite(res, HexColor);
         };
         
     },

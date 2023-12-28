@@ -15,17 +15,22 @@ const pool = mysql.createPool({
 
 function MysqlExcute(sql, data){
     return new Promise ((resolve, reject) => {
-        pool.getConnection(function(err, connection) {
-            console.log(err);
-            connection.query(sql, data, function(err, result) {
-                try {
-                    resolve(result);
-                } catch {
-                    reject(err);
-                };
-                pool.releaseConnection(connection);
+        try{
+            pool.getConnection(function(err,connection) {
+                if (err != null) {reject(err)};
+                connection.query(sql, data, function(err, result) {
+                    try {
+                        resolve(result);
+                    } catch {
+                        reject(err);
+                    };
+                    pool.releaseConnection(connection);
+                });
             });
-        });
+        } catch(err){
+            console.log(err);
+            reject(err);
+        }
     });
 }
 
