@@ -4,7 +4,7 @@ let imageMainColor = require('../utils/imageMainColor');
 module.exports = {
     async imageColorController(req, res) {
         let param = req.query.url;
-        let result = await imageColor.imageColorQueryByUrl(param)
+        let result = await imageColor.imageColorQueryByUrl(param);
         if (result.length == 0) {
             imageMainColor.getImageColorRGB(param)
             .then((HexColor) => {

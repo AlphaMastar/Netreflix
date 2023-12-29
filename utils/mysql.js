@@ -30,7 +30,7 @@ function MysqlExcute(sql, data){
         } catch(err){
             console.log(err);
             reject(err);
-        }
+        };
     });
 }
 
