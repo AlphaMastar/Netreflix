@@ -3,19 +3,19 @@ let imageMainColor = require('../utils/imageMainColor');
 
 module.exports = {
     async imageColorController(req, res) {
-        let param = req.query.url;
+        var param = req.query.url;
         let result = await imageColor.imageColorQueryByUrl(param);
         if (result.length == 0) {
             imageMainColor.getImageColorRGB(param)
             .then((HexColor) => {
                 this.jsonWrite(res, HexColor);
-                imageColor.imageColorAdd([url, HexColor.RGB]);
+                imageColor.imageColorAdd([param, HexColor.RGB]);
             })
             .catch((err) => {
-                res.send(err)
+                console.log(err);
             })
         } else {
-            let HexColor = JSON.stringify(result[0],['RGB']);
+            let HexColor = {RGB: result[0].RGB};
             this.jsonWrite(res, HexColor); 
         };
         
