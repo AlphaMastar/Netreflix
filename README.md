@@ -2,7 +2,7 @@
 
 ## Usage
 
-download下来之后手动建一张表，字段为'id'主键(其实无所谓), 'url', 'RGB'
+download下来之后手动建一张表，表名为'imgcolor'，字段为'id'主键(其实无所谓), 'url', 'RGB'
 .env里是mysql数据库的信息，请填写，
 进入文件夹后进入终端
 
