@@ -5,10 +5,10 @@ const urlRegex = /^(((ht|f)tp?):\/\/)?([^!@#$%^&*?.\s-]([^!@#$%^&*?.\s]{0,63}[^!
 module.exports = {
     async imageColorController(req, res) {
         let param = req.query.url;
-        if (urlRegex.test(param), param != undefined) {
+        if (urlRegex.test(param) && param != undefined) {
             let result = await imageColor.imageColorQueryByUrl(param);
             if (result.length == 0) {
-                imageMainColor.getImageColorRGB(param)
+                imageMainColor(param)
                 .then((HexColor) => {
                     this.jsonWrite(res, HexColor);
                     imageColor.imageColorAdd([param, HexColor.RGB]);
@@ -18,14 +18,14 @@ module.exports = {
                 })
             } else {
                 let HexColor = {RGB: result[0].RGB};
-                this.jsonWrite(res, HexColor); 
+                this.jsonWrite(res, HexColor);
             };
         } else {
-            this.jsonWrite(res, {"参数不合法": param})
+            this.jsonWrite(res, {"参数不合法": param});
         };
     },
-    jsonWrite (res, ret) {
-        if(typeof ret === 'undefined') {
+    jsonWrite(res, ret) {
+        if (typeof ret === 'undefined') {
             res.json({
                 code:'500',
                 Message: '操作失败'

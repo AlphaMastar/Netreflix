@@ -1,11 +1,8 @@
-var dbInfo = require('../config/db');
-var mysql = require("mysql")
-var sql = require('../mapper/sql');
+const MysqlExcute = require('../utils/mysql');
+const sql = require('../mapper/weaponSql');
 
-var db = mysql.createPool({
-    host: dbInfo.host, 
-    user: dbInfo.user,         
-    password: dbInfo.password,     
-    database: dbInfo.database,
-    connectionLimit: 20
-});
+module.exports = {
+    async getWeaponList(sql, data) {
+        return await MysqlExcute(sql, data);
+    }
+}
