@@ -4,7 +4,7 @@ const urlRegex = /^(((ht|f)tp?):\/\/)?([^!@#$%^&*?.\s-]([^!@#$%^&*?.\s]{0,63}[^!
 
 module.exports = {
     async imageColorController(req, res) {
-        let param = req.query.url;
+        let param = decodeURIComponent(req.params.urlParam);
         if (urlRegex.test(param) && param != undefined) {
             let result = await imageColor.imageColorQueryByUrl(param);
             if (result.length == 0) {

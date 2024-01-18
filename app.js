@@ -5,7 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var apiRouter = require('./routes/api');
+var chineseRouter = require('./routes/chinese');
+var imageRouter = require('./routes/image');
 
 var app = express();
 
@@ -27,7 +28,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api', apiRouter);
+app.use('/chinese', chineseRouter);
+app.use('/imagecolor', imageRouter);
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
