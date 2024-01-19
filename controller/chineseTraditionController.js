@@ -1,10 +1,9 @@
-const e = require('express');
 const chineseTradition = require('../service/chineseTradition');
 
 module.exports = {
     async chineseTraditionController(req, res) {
         let type = req.params.type;
-        switch(type) {
+        switch (type) {
             case "poem":
                 let poem_id = Math.floor(Math.random()*10000);
                 let poem = await chineseTradition.getPoemByID(poem_id);
@@ -34,31 +33,33 @@ module.exports = {
         };
     },
     async poemController(req, res) {
-        let sentence = '%' + decodeURIComponent(req.query.sentence) + '%';
-        let from = '%' + decodeURIComponent(req.query.from) + '%';
-        let poemMap = new Map()
-            .set('sentence', sentence)
-            .set('from', from);
-        if (sentence || from) {
-            let poem = await chineseTradition.getWriterByName(poemMap);
-            this.jsonWrite(res, poem);
-        };
-    },
-    async articleController(req, res) {
-        let title = '%' + decodeURIComponent(req.query.title) + '%';
-        let writer = '%' + decodeURIComponent(req.query.writer) + '%';
-        let dynasty = '%' + decodeURIComponent(req.query.dynasty) + '%';
-        let content = '%' + decodeURIComponent(req.query.content) + '%';
-        let articleMap = new Map()
-            .set('title', title)
-            .set('writer', writer)
-            .set('dynasty', dynasty)
-            .set('content', content);
-        if (title || writer || dynasty || content) {
-            let poem = await chineseTradition.getPoemByParams(articleMap);
+        let poemMap = new Map();
+        let sentence = decodeURIComponent(req.query.sentence);
+        let from = decodeURIComponent(req.query.from);
+        if (sentence != 'undefined') {poemMap.set('sentence', '%' + sentence + '%')};
+        if (from != 'undefined') {poemMap.set('from', '%' + from + '%')};
+        if (poemMap.has('sentence') || poemMap.has('from')) {
+            let poem = await chineseTradition.getPoemByParams(poemMap);
             this.jsonWrite(res, poem);
         } else {
-            this.jsonWrite(res, {"参数不合法": type});
+            this.jsonWrite(res, {"参数不合法": req.query});
+        }
+    },
+    async articleController(req, res) {
+        let articleMap = new Map();
+        let title = decodeURIComponent(req.query.title);
+        let writer = decodeURIComponent(req.query.writer);
+        let dynasty = decodeURIComponent(req.query.dynasty);
+        let content = decodeURIComponent(req.query.content);
+        if (title != 'undefined') {articleMap.set('title', '%' + title + '%')};
+        if (writer != 'undefined') {articleMap.set('writer', '%' + writer + '%')};
+        if (dynasty != 'undefined') {articleMap.set('dynasty', '%' + dynasty + '%')};
+        if (content != 'undefined') {articleMap.set('content', '%' + content + '%')};
+        if (articleMap.has('title') || articleMap.has('writer') || articleMap.has('dynasty') || articleMap.has('content')) {
+            let poem = await chineseTradition.getArticleByParams(articleMap);
+            this.jsonWrite(res, poem);
+        } else {
+            this.jsonWrite(res, {"参数不合法": req.query});
         };
     },
     async writerController(req, res) {
