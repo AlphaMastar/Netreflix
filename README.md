@@ -17,8 +17,8 @@ npm install
 node ./bin/www
 ```
 
-启动项目：
-    访问http://你的ip:4000/imagecolor/你要查询主色调的图片链接/，注意为了配合restful风格API，主色调的图片链接需要进行加密传送以获取图片主色调，否则会导致地址混乱无法解析。</br>
+启动项目：</br>
+访问http://你的ip:4000/imagecolor/你要查询主色调的图片链接/，注意为了配合restful风格API，主色调的图片链接需要进行加密传送以获取图片主色调，否则会导致地址混乱无法解析。</br>
 访问http://你的ip:4000/chinese/查询的古诗文类型如poem,article,writer/，可以随机显示一篇古诗文或者古文作者简介。</br>
 访问http://你的ip:4000/chinese/查询的古诗文类型如poem,article,writer/search?，可以模糊查询古诗文的内容，</br>
 其中:
