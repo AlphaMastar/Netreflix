@@ -1,6 +1,6 @@
 const MysqlExcute = require('../utils/mysql');
 const sql = require('../mapper/imageColorSql');
- 
+
 module.exports = {
 	async imageColorAdd(data) {
 		return await MysqlExcute(sql.insert, data);
