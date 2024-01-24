@@ -8,7 +8,7 @@ router.get('/', function(req, res) {
 });
 
 /* GET imageColor. */
-router.get('/*', function(req, res) {
+router.get('/:urlParam', function(req, res) {
   imageColorController.imageColorController(req, res);
 });
 
