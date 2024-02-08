@@ -19,6 +19,11 @@ module.exports = {
                 let writer = await chineseTradition.getWriterByID(writer_id);
                 this.jsonWrite(res, writer[0]);
                 break;
+            case "poet":
+                let poet_id = Math.floor(Math.random() * 377501);
+                let poet = await chineseTradition.getPoetByID(poet_id);
+                this.jsonWrite(res, poet[0]);
+                break;
             default:
                 this.jsonWrite(res, { "参数不合法": type });
         };
@@ -26,19 +31,35 @@ module.exports = {
     async searchController(req, res) {
         let type = req.params.type;
         switch (type) {
+            case "poet": await this.poetController(req, res); break;
             case "poem": await this.poemController(req, res); break;
             case "article": await this.articleController(req, res); break;
             case "writer": await this.writerController(req, res); break;
             default: this.jsonWrite(res, { "参数不合法": type });
         };
     },
+    async poetController(req, res) {
+        let poetMap = new Map(Object.entries(req.query));
+        poetMap.forEach((value, key) => {
+            if (value) {
+                poetMap.set(key, `%${value}%`);
+            }
+        });
+        if (poetMap.get('tags') || poetMap.get('title') || poetMap.get('author') || poetMap.get('content')) {
+            let poet = await chineseTradition.getPoetByParams(poetMap);
+            this.jsonWrite(res, poet);
+        } else {
+            this.jsonWrite(res, { "参数不合法": req.query });
+        }
+    },
     async poemController(req, res) {
-        let poemMap = new Map();
-        let sentence = decodeURIComponent(req.query.sentence);
-        let from = decodeURIComponent(req.query.from);
-        if (sentence != 'undefined') { poemMap.set('sentence', '%' + sentence + '%') };
-        if (from != 'undefined') { poemMap.set('from', '%' + from + '%') };
-        if (poemMap.has('sentence') || poemMap.has('from')) {
+        let poemMap = new Map(Object.entries(req.query));
+        poemMap.forEach((value, key) => {
+            if (value) {
+                poemMap.set(key, `%${value}%`);
+            }
+        });
+        if (poemMap.get('sentence') || poemMap.get('from')) {
             let poem = await chineseTradition.getPoemByParams(poemMap);
             this.jsonWrite(res, poem);
         } else {
@@ -46,18 +67,15 @@ module.exports = {
         }
     },
     async articleController(req, res) {
-        let articleMap = new Map();
-        let title = decodeURIComponent(req.query.title);
-        let writer = decodeURIComponent(req.query.writer);
-        let dynasty = decodeURIComponent(req.query.dynasty);
-        let content = decodeURIComponent(req.query.content);
-        if (title != 'undefined') { articleMap.set('title', '%' + title + '%') };
-        if (writer != 'undefined') { articleMap.set('writer', '%' + writer + '%') };
-        if (dynasty != 'undefined') { articleMap.set('dynasty', '%' + dynasty + '%') };
-        if (content != 'undefined') { articleMap.set('content', '%' + content + '%') };
-        if (articleMap.has('title') || articleMap.has('writer') || articleMap.has('dynasty') || articleMap.has('content')) {
-            let poem = await chineseTradition.getArticleByParams(articleMap);
-            this.jsonWrite(res, poem);
+        let articleMap = new Map(Object.entries(req.query));
+        articleMap.forEach((value, key) => {
+            if (value) {
+                articleMap.set(key, `%${value}%`);
+            }
+        });
+        if (articleMap.get('title') || articleMap.get('writer') || articleMap.get('dynasty') || articleMap.get('content')) {
+            let article = await chineseTradition.getArticleByParams(articleMap);
+            this.jsonWrite(res, article);
         } else {
             this.jsonWrite(res, { "参数不合法": req.query });
         };

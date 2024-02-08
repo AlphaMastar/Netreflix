@@ -5,6 +5,9 @@ module.exports = {
     async getPoemByID(data) {
         return await MysqlExcute(sql.queryPoemByID, data);
     },
+    async getPoetByID(data) {
+        return await MysqlExcute(sql.queryPoetByID, data);
+    },
     async getArticleByID(data) {
         return await MysqlExcute(sql.queryArticleByID, data);
     },
@@ -41,6 +44,27 @@ module.exports = {
         if (data.has('dynasty')) {
             query += sql.dynasty_query;
             params.push(data.get('dynasty'));
+        };
+        if (data.has('content')) {
+            query += sql.content_query;
+            params.push(data.get('content'));
+        };
+        return await MysqlExcute(query, params);
+    },
+    async getPoetByParams(data) {
+        let params = [];
+        let query = sql.queryPoetByParams;
+        if (data.has('tags')) {
+            query += sql.tags_query;
+            params.push(data.get('tags'));
+        };
+        if (data.has('title')) {
+            query += sql.title_query;
+            params.push(data.get('title'));
+        };
+        if (data.has('author')) {
+            query += sql.author_query;
+            params.push(data.get('author'));
         };
         if (data.has('content')) {
             query += sql.content_query;
