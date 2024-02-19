@@ -1,6 +1,0 @@
-CREATE TABLE IF NOT EXISTS `imgcolor` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `url` varchar(100) DEFAULT NULL,
-  `RGB` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb4;
