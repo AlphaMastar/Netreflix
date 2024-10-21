@@ -6,7 +6,7 @@ module.exports = {
     async imageColorController(req, res) {
         let param = decodeURIComponent(req.params.urlParam);
         if (urlRegex.test(param) && param != undefined) {
-            let result = await imageColor.imageColorQueryByUrl(param);
+            let result = await imageColor.imageColorQueryByUrl([param]);
             if (result.length == 0) {
                 imageMainColor(param)
                     .then((HexColor) => {
@@ -17,7 +17,7 @@ module.exports = {
                         this.jsonWrite(res, err);
                     })
             } else {
-                let HexColor = { RGB: result[0].RGB };
+                let HexColor = { RGB: result[0].rgb };
                 this.jsonWrite(res, HexColor);
             };
         } else {

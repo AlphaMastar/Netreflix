@@ -8,6 +8,9 @@ const pool = new Pool({
     database: process.env.POSTGRES_DATABASE,
     max: 10,
     idleTimeoutMillis: 30000,
+    ssl: {
+        rejectUnauthorized: false // 如果你使用的是自签名证书，可以设置为 false
+    }
 });
 
 function PostgresExecute(sql, data) {
