@@ -1,4 +1,4 @@
-const MysqlExcute = require('../utils/sqlite');
+const MysqlExcute = require('../utils/mysql');
 const sql = require('../mapper/imageColorSql');
 
 module.exports = {
